@@ -210,3 +210,13 @@
             mock数据 [=> 如果没数据我们可以mock数据然后使用异步获取数据的方式从本地拿数据
 */
 
+
+//添加effect
+/**
+    Reducers 处理同步，Effects 处理异步？
+    Reducers 的本质是修改 model 的 state,而 Effects 主要是 控制数据流程
+    所以最终往往我们在 Effects 中会调用 Reducers。
+
+
+
+ */

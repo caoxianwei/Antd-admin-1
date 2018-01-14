@@ -59,8 +59,5 @@ function delay(timeout){
   return new Promise(resolve => {
     setTimeout(resolve, timeout);
   });
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> ecac1938be2f01b64d63371a5b56846cb28c5c5c
+
