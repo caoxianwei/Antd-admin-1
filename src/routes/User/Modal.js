@@ -21,11 +21,14 @@ const User = ({location,dispatch, user})=>{
         current,
         loading,
         dataSource:list,
-        onCreateItem(id){
-            dispatch({
-                type: 'user/create',
-                payload: id,
-            })
+        onCreateItem(value){
+            //value:Proxy[有个拦截] Object
+            if(value.name){
+                dispatch({
+                    type: 'user/create',
+                    payload: value,
+                })
+            }
         },
         onDeleteItem (id) {
             dispatch({
@@ -33,10 +36,10 @@ const User = ({location,dispatch, user})=>{
                 payload: id,
             })
         },
-        onEditItem (value) {
+        onEditItem (id,value) {
             dispatch({
                 type: 'user/update',
-                payload: value,
+                payload: {id,value},
             })
         }
     };

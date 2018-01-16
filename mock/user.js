@@ -94,6 +94,8 @@ const adminUsers = [
 
 
 
+
+
 const mock = {
     //发送登录请求
     [`POST ${apiPrefix}/user/login`] (req, res) {
@@ -130,6 +132,51 @@ const mock = {
             success: true,
             result:database
         });
-    }
+    },
+    //删除某个用户
+    [`DELETE ${apiPrefix}/users/:id`] (req, res) {
+        const { id } = req.params
+        let tempdata = database.list;
+        if (tempdata) {
+            tempdata = tempdata.filter(item => item.id !== id)
+            database.list = tempdata
+            res.status(204).end()
+        } else {
+          res.status(404).json(NOTFOUND)
+        }
+    },
+    //新增用户
+    [`POST ${apiPrefix}/user`] (req, res) {
+         let newData =JSON.parse(req.body)
+         let tempdata = database.list;
+         let id = Math.round(Math.random()*100);
+         let myDate = new Date();
+         newData.id = id
+         newData.creattime = myDate.toLocaleString()
+         tempdata.unshift(newData)
+         database.list = tempdata
+         res.status(200).end()
+    },
+    //编辑用户
+    [`PATCH ${apiPrefix}/user/:id`] (req, res) {
+        //let newData =JSON.parse(req.body)
+        let newData =req.body
+        const { id } = req.params
+        let isExist = false
+        let tempdata = database.list;
+        database.list = tempdata.map((item) => {
+          if (item.id === id) {
+            isExist = true
+            return Object.assign({}, item, newData)
+          }
+          return item
+        })
+
+        if (isExist) {
+          res.status(201).end()
+        } else {
+          res.status(404).json(NOTFOUND)
+        }
+    },
 }
 module.exports = mock;

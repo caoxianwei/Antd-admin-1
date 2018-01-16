@@ -28,17 +28,16 @@ class UserDialog extends Component {
       visible: false,
     });
   };
-
   okHandler = () => {
     const { onOk } = this.props;
     this.props.form.validateFields((err, values) => {
       if (!err) {
+        //一个回调函数
         onOk(values);
         this.hideModelHandler();
       }
     });
   };
-
   render() {
     const { children } = this.props;
     const { getFieldDecorator } = this.props.form;
@@ -51,13 +50,14 @@ class UserDialog extends Component {
     return (
       <span>
         <span onClick={this.showModelHandler}>
+          {/* children 是包含在dialog里面的孩子 新增和编辑 */}
           { children }
         </span>
         <Modal
           title="编辑"
           visible={this.state.visible}
-          onOk={this.okHandler}
           onCancel={this.hideModelHandler}
+          onOk={this.okHandler}
           okText="保存"
           cancelText="取消"
         >
@@ -69,6 +69,7 @@ class UserDialog extends Component {
               {
                 getFieldDecorator('name', {
                   initialValue: name,
+                  rules: [{required: true}]
                 })(<Input />)
               }
             </FormItem>
@@ -79,6 +80,7 @@ class UserDialog extends Component {
               {
                 getFieldDecorator('gender', {
                   initialValue: gender,
+                  rules: [{required: true}]
                 })(<Input />)
               }
             </FormItem>
@@ -89,6 +91,7 @@ class UserDialog extends Component {
               {
                 getFieldDecorator('role', {
                   initialValue: role,
+                  rules: [{required: true}]
                 })(<Input />)
               }
             </FormItem>

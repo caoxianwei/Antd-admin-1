@@ -1,7 +1,9 @@
 /**
  * @desc 用户数据集列表
  */
-import { query } from '../services/user';
+
+import * as usersService from '../services/user';
+
 export default {
     namespace:'user',
     state:{
@@ -9,7 +11,6 @@ export default {
         total: null,
         loading: false, // 控制加载状态
         current: null, // 当前分页信息
-        currentItem: {}, // 当前操作的用户对象
         modalVisible: false, // 弹出窗的显示状态
         modalType: 'create', // 弹出窗的类型（添加用户，编辑用户）
     },
@@ -28,7 +29,7 @@ export default {
     // Effects 主要是 控制数据流程
     effects:{//异步
         *query({ payload }, { select, call, put }){
-            const { data } = yield call(query);//触发向后端发送数据 [call:调用执行一个函数]
+            const { data } = yield call(usersService.query);//触发向后端发送数据 [call:调用执行一个函数]
             if(data.success){
                 let rev = data.result;
                 yield put({//在 Effects 中会调用 Reducers。 相当于 dispatch 执行一个 action
@@ -42,9 +43,26 @@ export default {
                 });
             }
         },
-        *create(){},
-        *'delete'(){},//删除是关键字
-        *update(){},
+        *create({ payload:values }, { call, put }){
+            const data = yield call(usersService.create, values)
+            if (data.success) {
+                yield put({ type: 'reload' })
+              } else {
+                throw data
+            }
+        },
+        *'delete'({payload:id},{call,put}){//删除是关键字
+            yield call(usersService.remove, id);
+            yield put({ type: 'reload' });
+        },
+        *update({ payload: { id, value} }, { select, call, put }){
+            yield call(usersService.update, id, value);
+            yield put({ type: 'reload' });
+        },
+        *reload(action, { put, select }){//刷新
+            const page = yield select(state => state.user.current);
+            yield put({ type: 'query', payload: {page} });
+        }
     },
     // Reducers 的本质是修改 model 的 state
     reducers:{

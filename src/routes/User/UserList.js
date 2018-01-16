@@ -11,11 +11,11 @@ import Dialog from './Dialog';
 const confirm = Modal.confirm
 
 const UserList = ({onCreateItem, onEditItem,onDeleteItem,total,current,loading,dataSource})=>{
-    const createHandler=()=>{
-        onCreateItem()
+    const createHandler=(value)=>{
+        onCreateItem(value)
     }
-    const editHandler=(record)=>{
-        onEditItem(record)
+    const editHandler=(record,values)=>{
+        onEditItem(record.id,values)
     }
     const deleteHandler=(record)=>{
         confirm({
@@ -48,10 +48,10 @@ const UserList = ({onCreateItem, onEditItem,onDeleteItem,total,current,loading,d
         render: (text, record) => (
           <p>
             <Dialog record={record} onOk={editHandler.bind(null, record)}>
-                <a>编辑</a>
+                <Button type="primary">编辑</Button>
             </Dialog>
             &nbsp;
-            <a onClick={deleteHandler.bind(null, record)}>删除</a>
+            <a onClick={deleteHandler.bind(null, record)}><Button type="danger">删除</Button></a>
           </p>
         ),
     }];
