@@ -13,31 +13,37 @@ let database = {
     current: 1,
     loading: false,
     list:[{
+        id:'001',
         name: '张三',
         gender: '男',
         role: '游客',
         creattime:'2018/1/12 8：00'
     },{
+        id:'002',
         name: '李四',
         gender: '女',
         role: '管理员',
         creattime:'2018/1/13 8：00'
     },{
+        id:'003',
         name: '王麻子',
         gender: '男',
         role: '超级管理员',
         creattime:'2018/1/13 18：00'
     },{
+        id:'004',
         name: '张三1111',
         gender: '男',
         role: '游客',
         creattime:'2018/1/12 8：00'
     },{
+        id:'005',
         name: '李四222',
         gender: '女',
         role: '管理员',
         creattime:'2018/1/13 8：00'
     },{
+        id:'006',
         name: '王麻子333',
         gender: '男',
         role: '超级管理员',

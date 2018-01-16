@@ -17,26 +17,28 @@ import { connect } from 'dva';
 const User = ({location,dispatch, user})=>{
     const {list, total,loading, current} = user;
     const userListProps = {
-        /*
-            total: 3,
-            current: 1,
-            loading: false,
-            dataSource:[{
-                name: '张三',
-                gender: '男',
-                role: '游客',
-                creattime:'2018/1/12 8：00'
-            },{
-                name: '李四',
-                gender: '女',
-                role: '管理员',
-                creattime:'2018/1/13 8：00'
-            }]
-        */
         total,
         current,
         loading,
-        dataSource:list
+        dataSource:list,
+        onCreateItem(id){
+            dispatch({
+                type: 'user/create',
+                payload: id,
+            })
+        },
+        onDeleteItem (id) {
+            dispatch({
+                type: 'user/delete',
+                payload: id,
+            })
+        },
+        onEditItem (value) {
+            dispatch({
+                type: 'user/update',
+                payload: value,
+            })
+        }
     };
     return (
         <MainLayout location={location}>

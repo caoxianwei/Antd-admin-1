@@ -4,10 +4,27 @@
  *   @date  2018/1/13
  */
 import React from 'react';
-import { Table, Popconfirm } from 'antd';
+import queryString from 'query-string';
+import { Table, Popconfirm,Button,Pagination,Modal } from 'antd';
 import 'antd/dist/antd.css';
+import Dialog from './Dialog';
+const confirm = Modal.confirm
 
-const UserList = ({total,current,loading,dataSource})=>{
+const UserList = ({onCreateItem, onEditItem,onDeleteItem,total,current,loading,dataSource})=>{
+    const createHandler=()=>{
+        onCreateItem()
+    }
+    const editHandler=(record)=>{
+        onEditItem(record)
+    }
+    const deleteHandler=(record)=>{
+        confirm({
+        title: '确定要删除吗?',
+            onOk () {
+                onDeleteItem(record.id)
+            }
+        })
+    }
     //定义表头
     const columns = [{
         title: '姓名',
@@ -30,29 +47,24 @@ const UserList = ({total,current,loading,dataSource})=>{
         key: 'operation',
         render: (text, record) => (
           <p>
-            <a onClick={()=>{}}>编辑</a>
+            <Dialog record={record} onOk={editHandler.bind(null, record)}>
+                <a>编辑</a>
+            </Dialog>
             &nbsp;
-            <Popconfirm title="确定要删除吗？" onConfirm={()=>{}}>
-              <a>删除</a>
-            </Popconfirm>
+            <a onClick={deleteHandler.bind(null, record)}>删除</a>
           </p>
         ),
     }];
-    //分页对象
-    const pagination = {
-        total,
-        current,
-        pageSize: 10,
-        onChange: ()=>{},
-    }
     return(
         <div>
+            <Dialog record={{}} onOk={createHandler}>
+                <Button type="primary" onClick={createHandler}>新建用户</Button>
+            </Dialog>
             <Table
                 columns={columns}
                 dataSource={dataSource}
                 loading={loading}
                 rowKey={record => record.name}
-                pagination={pagination}
             />
         </div>
     );
