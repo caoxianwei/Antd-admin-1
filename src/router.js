@@ -1,7 +1,11 @@
 import React from 'react';
 import {  Route, Switch,Redirect,routerRedux } from 'dva/router';
 import dynamic from 'dva/dynamic';
+import App from './routes/app';
+
+
 const { ConnectedRouter } = routerRedux
+
 
 const RunterConfig  = function({history,app}){
     const notFound = dynamic({
@@ -24,7 +28,7 @@ const RunterConfig  = function({history,app}){
     ]
     return (
         <ConnectedRouter history={history}>
-        {/* <App> */}
+        <App>
           <Switch>
             <Route exact path="/" render={() => (<Redirect to="/user"/>)} />
             {
@@ -41,7 +45,7 @@ const RunterConfig  = function({history,app}){
             }
             <Route path='*' exact component={notFound} />
           </Switch>
-        {/* </App> */}
+        </App>
       </ConnectedRouter>
     )
 }

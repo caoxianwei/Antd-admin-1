@@ -14,21 +14,21 @@ const CountApp = ({count, dispatch,location}) => {
     //通过 props 传入两个值，count 和 dispatch，
     //count 对应 model 上的 state，在后面 connect 的时候绑定，dispatch 用于分发 action
     return (
-    <MainLayout location={location}>
-      <div className={styles.normal}>
+    // <MainLayout location={location}>
+    <div className={styles.normal}>
         <div className={styles.record}>
-              最高记录:0
-              {/* {count.record} */}
-          </div>
-          <div className={styles.current}>
-              当前记录：0
-              {/* {count.current} */}
-          </div>
-        <div className={styles.button}>
-          <button onClick={() => { dispatch({type: 'count/add'}); }}>+</button>
+            最高记录:0
+            {/* {count.record} */}
         </div>
-      </div>
-      </MainLayout>
+        <div className={styles.current}>
+            当前记录：0
+            {/* {count.current} */}
+        </div>
+        <div className={styles.button}>
+            <button onClick={() => { dispatch({type: 'count/add'}); }}>+</button>
+        </div>
+    </div>
+    //   </MainLayout>
     );
 };
 

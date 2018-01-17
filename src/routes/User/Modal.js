@@ -44,11 +44,11 @@ const User = ({location,dispatch, user})=>{
         }
     };
     return (
-        <MainLayout location={location}>
+        // <MainLayout location={location}>
             <div className={styles.normal}>
                 <UserList {...userListProps}/>
             </div>
-        </MainLayout>
+        // </MainLayout>
     )
 }
 // 指定订阅数据，这里关联了 user

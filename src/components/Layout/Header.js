@@ -35,7 +35,7 @@ const Header = function({location}){
                         </span>}
                     >
                         <Menu.Item key="logout">
-                            <span style={{fontSize:'20px'}}>退出登陆</span>
+                            <span style={{fontSize:'20px'}}>退出登录</span>
                         </Menu.Item>
                     </SubMenu>
                 </Menu>
