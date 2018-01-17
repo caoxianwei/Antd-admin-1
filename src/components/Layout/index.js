@@ -1,10 +1,10 @@
-import styles from './index.less';
+//import styles from './index.less';
 import Header from './Header';
 import Sider from './Sider';
 
 
 export {
-    styles,
+    //styles,
     Header,
     Sider
 }

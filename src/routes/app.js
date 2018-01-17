@@ -33,8 +33,7 @@ const App = ({children, dispatch, app, loading, location}) => {
     const current = menu.filter(item => pathToRegexp(item.route || '').exec(pathname))
     //如果用户能访问的菜单id里包含了当前菜单的[防止用户输入地址栏强行跳转]
     //这句代码也真是讲究
-    const hasPermission = false;
-    //current.length ? permissions.visit.includes(current[0].id) : false
+    const hasPermission = current.length ? permissions.visit.includes(current[0].id) : false
 
     const headerProps = {
         menu,
@@ -78,7 +77,29 @@ const App = ({children, dispatch, app, loading, location}) => {
     //           2. 有权限则依据model层订阅得到的权限值[后台返回] 生成不同的菜单 + 个人信息
     return (
         <div>
-            {children}
+            {/* spinning={loading.effects['app/query']} */}
+            <Loader fullScreen  />
+            <Helmet>
+                <title>ANTD ADMIN</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            </Helmet>
+            <Layout>
+                {
+                    <Sider trigger={null} collapsible collapsed={siderFold}>
+                        {siderProps.menu.length === 0 ? null : <MyLayout.Sider {...siderProps} />}
+                    </Sider>
+                }
+                <Layout style={{ height: '100vh', overflow: 'scroll' }} id="mainContainer">
+                    <BackTop target={() => document.getElementById('mainContainer')} />
+                    <Header {...headerProps} />
+                    <Content>
+                        {hasPermission ? children : <Error />}
+                    </Content>
+                    <Footer >
+                        {config.footerText}
+                    </Footer>
+                </Layout>
+            </Layout>
         </div>
     )
 }

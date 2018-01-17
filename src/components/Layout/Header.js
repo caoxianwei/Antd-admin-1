@@ -1,9 +1,19 @@
-import React from 'react';
-import { Menu, Icon,Layout } from 'antd';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Menu, Icon, Popover, Layout } from 'antd'
+import classnames from 'classnames'
 import { Link } from 'dva/router';
-import styles from './index.less';
+import styles from './Header.less'
+import Menus from './Menu'//位于header的一个按钮控制侧栏是否收缩
 
-const Header = function({location}){
+const Header = ({menu,user,siderFold,logout,location})=>{
+    //let handleClickMenu = e => e.key === 'logout' && logout()
+    // const menusProps = {//header
+    //     menu,
+    //     siderFold: false
+    // }
+
+
     const { SubMenu } = Menu;
     return (
         <Layout.Header className={styles.header}>

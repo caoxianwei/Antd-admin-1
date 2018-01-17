@@ -4,9 +4,9 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Icon, Switch } from 'antd'
-import { config } from '../../utils/config'
-import styles from './index.less'
+//import { Icon, Switch } from 'antd'
+import { config } from '../../utils/index'
+import styles from './Layout.less'//logo switch
 import Menus from './Menu'
 
 const Sider = ({siderFold, location, menu,}) =>{
@@ -17,16 +17,19 @@ const Sider = ({siderFold, location, menu,}) =>{
     }
     return (
         <div>
-            {siderFold ? '' : <span>{config.name}</span>}
+            <div className={styles.logo}>
+                <h3>😉</h3>
+                {siderFold ? '' : <span>{config.name}</span>}
+            </div>
             <Menus {...menusProps} />
         </div>
     )
 }
 
-Sider.propTypes = {
-    menu: PropTypes.array,
-    siderFold: PropTypes.bool,
-    location: PropTypes.object
-  }
+// Sider.propTypes = {
+//     menu: PropTypes.array,
+//     siderFold: PropTypes.bool,
+//     location: PropTypes.object
+//   }
 
 export default Sider
