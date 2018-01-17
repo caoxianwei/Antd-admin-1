@@ -4,7 +4,7 @@
  */
 import request from '../utils/request';
 
-//获取数据
+//获取用户列表数据
 export async function query(params) {
     return request(`/api/users`,{
         method: 'GET'
@@ -13,17 +13,17 @@ export async function query(params) {
 
 //删除用户
 export async function remove(id){
-    return request(`/api/users/${id}`,{
+    return request(`/api/user/${id}`,{
         method: 'DELETE'
     });
 }
 
 //新增
 export async function create(params) {
-    return request(`/api/users`,{
+    return request(`/api/user`,{
       method: 'POST',
-      header:'Content-Type: application/x-www-form-urlencoded',
-      body: JSON.stringify(params)
+      headers:{ 'Content-Type': 'application/json' },
+      body:JSON.stringify(params)
     })
 }
 
@@ -31,9 +31,9 @@ export async function create(params) {
 //编辑
 export async function update(id,params) {
     params.id = id;
-    return request(`/api/users/${id}`,{
+    return request(`/api/user/${id}`,{
       method: 'PATCH',
-      header:'Content-Type: application/x-www-form-urlencoded',
+      headers:{ 'Content-Type': 'application/json' },
       body: JSON.stringify(params)
     })
 }

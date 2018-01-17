@@ -45,7 +45,8 @@ export default {
         },
         *create({ payload:values }, { call, put }){
             const data = yield call(usersService.create, values)
-            if (data.success) {
+            //console.log(data)
+            if (data.data.success) {
                 yield put({ type: 'reload' })
               } else {
                 throw data

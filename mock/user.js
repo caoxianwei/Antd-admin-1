@@ -2,7 +2,7 @@
  * @desc 用户列表模拟接口
  */
 
-//const qs = require('qs')
+const qs = require('qs')
 //const Mock = require('mockjs')
 const apiPrefix = '/api'
 
@@ -97,12 +97,38 @@ const adminUsers = [
 
 
 const mock = {
+    //查询用户登录状态
+    [`GET ${apiPrefix}/user`] (req, res) {
+        const cookie = req.headers.cookie || ''
+        const cookies = qs.parse(cookie.replace(/\s/g, ''), { delimiter: ';' })
+        const response = {}
+        const user = {}
+        if (!cookies.token) {
+          res.status(200).send({ message: 'Not Login' })
+          return
+        }
+        const token = JSON.parse(cookies.token)
+        if (token) {
+          //只要有token值都会返回一个response token未过期则succeess成功
+          response.success = token.deadline > new Date().getTime()
+        }
+        if (response.success) {
+            //token合法{数据库存在该用户} 则返回用户信息
+          const userItem = adminUsers.filter(_ => _.id === token.id)
+          if (userItem.length > 0) {
+            user.permissions = userItem[0].permissions
+            user.username = userItem[0].username
+            user.id = userItem[0].id
+          }
+        }
+        response.user = user
+        res.json(response)
+    },
     //发送登录请求
     [`POST ${apiPrefix}/user/login`] (req, res) {
         const { username, password } = req.body
         //服务端收到请求，去验证用户名与密码
         const user = adminUsers.filter(item => item.username === username)
-
         if (user.length > 0 && user[0].password === password) {//验证成功
             const now = new Date()
             now.setDate(now.getDate() + 1)
@@ -134,32 +160,35 @@ const mock = {
         });
     },
     //删除某个用户
-    [`DELETE ${apiPrefix}/users/:id`] (req, res) {
+    [`DELETE ${apiPrefix}/user/:id`] (req, res) {
         const { id } = req.params
         let tempdata = database.list;
         if (tempdata) {
             tempdata = tempdata.filter(item => item.id !== id)
             database.list = tempdata
-            res.status(204).end()
+            res.status(204).json({      //将请求json格式返回
+                success: true
+            });
         } else {
           res.status(404).json(NOTFOUND)
         }
     },
     //新增用户
     [`POST ${apiPrefix}/user`] (req, res) {
-         let newData =JSON.parse(req.body)
-         let tempdata = database.list;
-         let id = Math.round(Math.random()*100);
-         let myDate = new Date();
-         newData.id = id
-         newData.creattime = myDate.toLocaleString()
-         tempdata.unshift(newData)
-         database.list = tempdata
-         res.status(200).end()
+        let newData = req.body
+        let tempdata = database.list;
+        let id = Math.round(Math.random()*100);
+        let myDate = new Date();
+        newData.id = id
+        newData.creattime = myDate.toLocaleString()
+        tempdata.unshift(newData)
+        database.list = tempdata
+        res.status(202).json({      //将请求json格式返回
+            success: true
+        });
     },
     //编辑用户
     [`PATCH ${apiPrefix}/user/:id`] (req, res) {
-        //let newData =JSON.parse(req.body)
         let newData =req.body
         const { id } = req.params
         let isExist = false
@@ -171,9 +200,10 @@ const mock = {
           }
           return item
         })
-
         if (isExist) {
-          res.status(201).end()
+            res.status(204).json({      //将请求json格式返回
+                success: true
+            });
         } else {
           res.status(404).json(NOTFOUND)
         }

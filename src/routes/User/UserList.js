@@ -4,8 +4,8 @@
  *   @date  2018/1/13
  */
 import React from 'react';
-import queryString from 'query-string';
-import { Table, Popconfirm,Button,Pagination,Modal } from 'antd';
+//import queryString from 'query-string';
+import { Table,Button,Modal } from 'antd';
 import 'antd/dist/antd.css';
 import Dialog from './Dialog';
 const confirm = Modal.confirm
