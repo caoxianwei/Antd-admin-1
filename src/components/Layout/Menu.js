@@ -21,11 +21,7 @@ const Menus = ({ siderFold, menu, location }) => {
                 //selectedKeys={[this.state.current]}
                 mode="inline"
             >
-                <Menu.Item key="sub1">
-                  <Icon type="pie-chart" />
-                  <span>图表</span>
-                </Menu.Item>
-                <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>角色管理</span></span>}>
+                <SubMenu key="sub1" title={<span><Icon type="appstore" /><span>角色管理</span></span>}>
                     <Menu.Item key="5">Option 5</Menu.Item>
                     <Menu.Item key="6">Option 6</Menu.Item>
                     <SubMenu key="sub3" title="Submenu">
@@ -33,6 +29,10 @@ const Menus = ({ siderFold, menu, location }) => {
                         <Menu.Item key="8">Option 8</Menu.Item>
                     </SubMenu>
                 </SubMenu>
+                <Menu.Item key="sub2">
+                    <Icon type="pie-chart" />
+                    <span>图表</span>
+                </Menu.Item>
                 <SubMenu key="sub4" title={<span><Icon type="setting" /><span>菜单配置</span></span>}>
                     <Menu.Item key="9">Option 9</Menu.Item>
                     <Menu.Item key="10">Option 10</Menu.Item>

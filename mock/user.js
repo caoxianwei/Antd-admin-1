@@ -98,31 +98,32 @@ const adminUsers = [
 
 const mock = {
     //查询用户登录状态
-    [`GET ${apiPrefix}/user`] (req, res) {
-        const cookie = req.headers.cookie || ''
-        const cookies = qs.parse(cookie.replace(/\s/g, ''), { delimiter: ';' })
-        const response = {}
+    [`POST ${apiPrefix}/userstatus`] (req, res) {
+        const token = req.body
+        // const cookie = req.headers.cookie || ''
+        // const cookies = qs.parse(cookie.replace(/\s/g, ''), { delimiter: ';' })
+        let success = false;
         const user = {}
-        if (!cookies.token) {
-          res.status(200).send({ message: 'Not Login' })
+        if (!token) {
+          res.status(200).send({ message: '无token，状态为未登录'})
           return
+        }else{
+            //只要有token值都会返回一个response token存在且未过期则succeess成功
+            success = token.deadline > new Date().getTime()
+            if (success) {
+                //token合法{数据库存在该用户} 则返回用户信息
+                const userItem = adminUsers.filter(_ => _.id === token.id)
+                if (userItem.length > 0) {
+                    user.permissions = userItem[0].permissions
+                    user.username = userItem[0].username
+                    user.id = userItem[0].id
+                }
+            }
         }
-        const token = JSON.parse(cookies.token)
-        if (token) {
-          //只要有token值都会返回一个response token未过期则succeess成功
-          response.success = token.deadline > new Date().getTime()
-        }
-        if (response.success) {
-            //token合法{数据库存在该用户} 则返回用户信息
-          const userItem = adminUsers.filter(_ => _.id === token.id)
-          if (userItem.length > 0) {
-            user.permissions = userItem[0].permissions
-            user.username = userItem[0].username
-            user.id = userItem[0].id
-          }
-        }
-        response.user = user
-        res.json(response)
+        res.status(202).json({
+            success,
+            user
+        })
     },
     //发送登录请求
     [`POST ${apiPrefix}/user/login`] (req, res) {
@@ -131,17 +132,16 @@ const mock = {
         const user = adminUsers.filter(item => item.username === username)
         if (user.length > 0 && user[0].password === password) {//验证成功
             const now = new Date()
-            now.setDate(now.getDate() + 1)
-            //验证成功后，服务端会签发一个 Token，再把这个 Token 发送给客户端
-            //客户端收到 Token 以后可以把它存储起来，比如放在 Cookie 里或者 Local Storage 里
-            //此处Token用简化的token表示实际上应该是加密生成的一串密码
-            //客户端每次向服务端请求资源的时候需要带着服务端签发的 Token
-            //服务端收到请求，然后去验证客户端请求里面带着的 Token，如果验证成功，就向客户端返回请求的数据
-            res.cookie('token', JSON.stringify({ id: user[0].id, deadline: now.getTime() }), {
-                maxAge: 900000,
-                httpOnly: true,
+            now.setDate(now.getDate() + 1)//有效时间为一天
+            // res.cookie('token', JSON.stringify({ id: user[0].id, deadline: now.getTime() }), {
+            //     maxAge: 900000,
+            //     //httpOnly: true,
+            // })
+            res.json({
+                success: true,
+                message: 'Ok',
+                cookie:JSON.stringify({ id: user[0].id, deadline: now.getTime() })
             })
-            res.json({ success: true, message: 'Ok' })
         }
         else {//验证失败
           res.status(400).end()

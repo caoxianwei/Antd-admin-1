@@ -7,6 +7,8 @@ import { query, logout } from '../services/app'// query某个用户具体信息
 //import * as menusService from 'services/menus'// query 提供获取菜单列表
 import {config} from '../utils/index'
 import queryString from 'query-string'
+import {getCookie} from '../utils/mixin'
+
 export default {
     namespace: 'app',
     state:{
@@ -16,8 +18,8 @@ export default {
         },
         menu:[{
             id:1,
-            name:'Dashboard',
-            router:'/dashboard'
+            name:'user',
+            router:'/user'
         }],
         locationPathname: '', //当前路径
         locationQuery: {},//from 判断上个路由
@@ -44,12 +46,20 @@ export default {
     effects:{
         //向后台发出登录状态查询[token值携带到header里发送]
         *query({payload},{put,call,select}){
-            const { success, user } = yield call(query, payload)
+            const token =  getCookie('token')//id + deadline
+            const  receiveData  = yield call(query, token)
+            const { success, user } = receiveData.data
             const { locationPathname } = yield select(_ => _.app)//从state 里获取数据
             //经后台查验
             //如果该用户已经登录
             if (success && user) {
-                console.log('这是不可能的 = = ')
+                //拿着后台返回的permission 更新state的permission及menu 【用处：1.route路由网关 鉴权 2.菜单栏生成菜单
+                //登录成功则进入后台页面
+                //if (locationPathname === '/login') {
+                    yield put(routerRedux.push({
+                        pathname: '/user',
+                    }))
+                //}
             }
             //还是不懂它的未登录状态为什么不直接用else 而是else if
             else if (config.openPages && config.openPages.indexOf(locationPathname) < 0) {
@@ -57,7 +67,7 @@ export default {
                 yield put(routerRedux.push({
                     pathname: '/login',
                     search: queryString.stringify({
-                        from: locationPathname,
+                        from: locationPathname,//更新from状态
                     })
                 }))
             }

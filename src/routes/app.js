@@ -67,7 +67,7 @@ const App = ({children, dispatch, app, loading, location}) => {
         <div>
             {/* 明明知道要输入登录信息了，为啥还要去后台查一遍是否已登录？..可能和浏览器默认记住密码有关? */}
             {/* 不管先注释掉  spinning={loading.effects['app/query']}*/}
-            <Loader fullScreen  />
+            <Loader fullScreen  spinning={loading.effects['app/query']}/>
             {/* 返回路由级组件 让路由依照path去找Login组件 */}
             {children}
         </div>)
@@ -78,7 +78,7 @@ const App = ({children, dispatch, app, loading, location}) => {
     return (
         <div>
             {/* spinning={loading.effects['app/query']} */}
-            <Loader fullScreen  />
+            <Loader fullScreen  spinning={loading.effects['app/query']}/>
             <Helmet>
                 <title>ANTD ADMIN</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />

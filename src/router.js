@@ -14,15 +14,15 @@ const RunterConfig  = function({history,app}){
     });
     const routes = [
         {
-            path:'/user',
-            //models:()=>[import('./models/user')],
+            path:'/user',//默认页
+            models:()=>[import('./models/user')],
             component:()=>import('./routes/user/Modal.js'),
         },{
             path:'/studydemo',
             component:()=>import('./routes/counter/Counter.js')
         },{
             path: '/login',
-            //models: () => [import('./models/login')],
+            models: () => [import('./models/login')],
             component: () => import('./routes/login/login.js'),
         }
     ]

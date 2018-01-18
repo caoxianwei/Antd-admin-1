@@ -6,7 +6,6 @@
  *  @func 负责订阅数据-把数据加工传递给UI组件展示
  */
 import React from 'react';
-import MainLayout from '../../components/Layout/index';
 //user 的  UI组件
 import UserList from './UserList';
 //引入对应样式
@@ -44,11 +43,9 @@ const User = ({location,dispatch, user})=>{
         }
     };
     return (
-        // <MainLayout location={location}>
-            <div className={styles.normal}>
-                <UserList {...userListProps}/>
-            </div>
-        // </MainLayout>
+        <div className={styles.normal}>
+            <UserList {...userListProps}/>
+        </div>
     )
 }
 // 指定订阅数据，这里关联了 user
