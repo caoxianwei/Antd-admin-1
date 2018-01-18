@@ -61,15 +61,16 @@ const EnumRoleType = {
 //不同角色对应的权限
 const userPermission = {
     DEFAULT: {
-      visit: ['1', '2', '21', '7', '5', '51', '52', '53'],
-      role: EnumRoleType.DEFAULT,
-    },
-    ADMIN: {
-      role: EnumRoleType.ADMIN,
+        visit: ['2','6'],
+        role: EnumRoleType.DEFAULT,
     },
     DEVELOPER: {
-      role: EnumRoleType.DEVELOPER,
+        visit: ['2','3','5','6'],
+        role: EnumRoleType.DEVELOPER,
     },
+    ADMIN: {//全部
+        role: EnumRoleType.ADMIN,
+    }
 }
 
 //目前数据库已有的用户列表
@@ -100,8 +101,6 @@ const mock = {
     //查询用户登录状态
     [`POST ${apiPrefix}/userstatus`] (req, res) {
         const token = req.body
-        // const cookie = req.headers.cookie || ''
-        // const cookies = qs.parse(cookie.replace(/\s/g, ''), { delimiter: ';' })
         let success = false;
         const user = {}
         if (!token) {

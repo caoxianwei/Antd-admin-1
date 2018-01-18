@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'dva';
-import styles from './index.less';
 
 
 const error = function({location}){
     return (
-        <div className={styles.normal}>
-            <h1>Ooooops! something went wrong!</h1>
+        <div>
+            <h1>最高权限能看到的</h1>
         </div>
     );
 }

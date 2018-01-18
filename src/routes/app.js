@@ -34,7 +34,6 @@ const App = ({children, dispatch, app, loading, location}) => {
     //如果用户能访问的菜单id里包含了当前菜单的[防止用户输入地址栏强行跳转]
     //这句代码也真是讲究
     const hasPermission = current.length ? permissions.visit.includes(current[0].id) : false
-
     const headerProps = {
         menu,
         user,//当前登录用户
@@ -105,30 +104,3 @@ const App = ({children, dispatch, app, loading, location}) => {
 }
 
 export default withRouter(connect(({ app, loading }) => ({ app, loading }))(App))
-
-/**
-<Loader fullScreen spinning={loading.effects['app/query']} />
-        <Helmet>
-          <title>ANTD ADMIN</title>
-          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        </Helmet>
-        <Layout>
-            {
-                <Sider trigger={null} collapsible collapsed={siderFold}>
-                    {siderProps.menu.length === 0 ? null : <MyLayout.Sider {...siderProps} />}
-                </Sider>
-            }
-            <Layout style={{ height: '100vh', overflow: 'scroll' }} id="mainContainer">
-                <BackTop target={() => document.getElementById('mainContainer')} />
-                <Header {...headerProps} />
-                <Content>
-                    {children}
-                    { {hasPermission ? children : <Error />} }
-                </Content>
-                <Footer >
-                    {config.footerText}
-                </Footer>
-            </Layout>
-        </Layout>
- *
- */

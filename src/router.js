@@ -21,6 +21,19 @@ const RunterConfig  = function({history,app}){
             path:'/studydemo',
             component:()=>import('./routes/counter/Counter.js')
         },{
+            path:'/menuset',
+            models:()=>[import('./models/user')],
+            component:()=>import('./routes/user/Modal.js'),
+        },{
+            path:'/adminsee',
+            component:()=>import('./routes/test/adminsee.js'),
+        },{
+            path:'/developersee',
+            component:()=>import('./routes/test/developersee.js'),
+        },{
+            path:'/originsee',
+            component:()=>import('./routes/test/originsee.js'),
+        },{
             path: '/login',
             models: () => [import('./models/login')],
             component: () => import('./routes/login/login.js'),
@@ -30,7 +43,7 @@ const RunterConfig  = function({history,app}){
         <ConnectedRouter history={history}>
         <App>
           <Switch>
-            <Route exact path="/" render={() => (<Redirect to="/user"/>)} />
+            <Route exact path="/" render={() => (<Redirect to="/originsee"/>)} />
             {
               routes.map(({ path, ...dynamics }, key) => (
                 <Route key={key}

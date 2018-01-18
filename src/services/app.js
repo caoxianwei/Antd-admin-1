@@ -26,7 +26,7 @@ export async function login (params) {
 
 export async function logout (params) {
     return request(`/api/user/logout`,{
-        method: 'GET',
+        method: 'POST',
         headers:{ 'Content-Type': 'application/json' },
         body:JSON.stringify(params)
     })

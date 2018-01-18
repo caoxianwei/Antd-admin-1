@@ -1,4 +1,4 @@
-import { request, config } from '../utils/index'
+import { request } from '../utils/index'
 
 export async function login (data) {
     return request(`/api/user/login`,{
