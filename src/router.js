@@ -14,16 +14,24 @@ const RunterConfig  = function({history,app}){
     });
     const routes = [
         {
-            path:'/user',//默认页
+            path: '/login',
+            models: () => [import('./models/login')],
+            component: () => import('./routes/login/login.js'),
+        },{
+            path:'/userset',//用户管理对应的用户列表
             models:()=>[import('./models/user')],
             component:()=>import('./routes/user/Modal.js'),
+        },{
+            path:'/roleset',//角色管理
+            //models:()=>[import('./models/user')],
+            component:()=>import('./routes/role/modal.js'),
+        },{
+            path:'/menuset',//菜单配置
+            models:()=>[import('./models/menus.js')],
+            component:()=>import('./routes/menus/modal.js'),
         },{
             path:'/studydemo',
             component:()=>import('./routes/counter/Counter.js')
-        },{
-            path:'/menuset',
-            models:()=>[import('./models/user')],
-            component:()=>import('./routes/user/Modal.js'),
         },{
             path:'/adminsee',
             component:()=>import('./routes/test/adminsee.js'),
@@ -33,10 +41,6 @@ const RunterConfig  = function({history,app}){
         },{
             path:'/originsee',
             component:()=>import('./routes/test/originsee.js'),
-        },{
-            path: '/login',
-            models: () => [import('./models/login')],
-            component: () => import('./routes/login/login.js'),
         }
     ]
     return (

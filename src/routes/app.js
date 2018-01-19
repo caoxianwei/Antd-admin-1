@@ -6,12 +6,12 @@
 
 import React from 'react'
 //import NProgress from 'nprogress'
-import PropTypes from 'prop-types'
+//import PropTypes from 'prop-types'
 import pathToRegexp from 'path-to-regexp'//匹配路由路径
 import { connect } from 'dva'
 import { Loader, MyLayout } from '../components/index'
 import { BackTop, Layout } from 'antd'
-import { classnames, config } from '../utils/index'//引入
+import { config } from '../utils/index'//引入
 import { Helmet } from 'react-helmet'//组织 html的head
 import { withRouter } from 'dva/router'
 import Error from './error'
@@ -20,8 +20,8 @@ import './app.less'
 
 
 const { Content, Footer, Sider } = Layout
-const { Header, styles } = MyLayout
-const { prefix, openPages } = config
+const { Header } = MyLayout
+const { openPages } = config
 
 
 const App = ({children, dispatch, app, loading, location}) => {

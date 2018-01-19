@@ -3,7 +3,7 @@
  */
 
 import React from 'react'
-import PropTypes from 'prop-types'
+//import PropTypes from 'prop-types'
 //import { Icon, Switch } from 'antd'
 import { config } from '../../utils/index'
 import styles from './Layout.less'//logo switch
@@ -18,7 +18,7 @@ const Sider = ({siderFold, location, menu,}) =>{
     return (
         <div>
             <div className={styles.logo}>
-                <h3>😉</h3>
+                <span role='img'>😉</span>
                 {siderFold ? '' : <span>{config.name}</span>}
             </div>
             <Menus {...menusProps} />

@@ -1,38 +1,55 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+//import PropTypes from 'prop-types'
 import { Menu, Icon} from 'antd'
 import { Link } from 'dva/router';
-//import { arrayToTree, queryArray } from 'utils'
-import pathToRegexp from 'path-to-regexp'
+import { arrayToTree } from '../../utils/mixin'
+//import pathToRegexp from 'path-to-regexp'
 
-const SubMenu = Menu.SubMenu;
-
+//const SubMenu = Menu.SubMenu;
 const Menus = ({ siderFold, menu, location }) => {
-    //将组件上级传下来的扁平化menu数组 转换成 树状结构 再将这个数据套在UI组件里面
-    //siderFold： 决定侧栏的展示形式
-    //const SubMenu = Menu.SubMenu;
-    let menuList = [];
-    menu.forEach(el => {
-        menuList.push(
-            <Menu.Item key={el.route}>
-                <Icon type={el.icon} />
-                <span>{el.name}</span>
-                <Link to={el.route}></Link>
-            </Menu.Item>
-        )
-    });
+    const menuTree = arrayToTree(menu)
+    //递归生成菜单
+    const getMenus = (menuTreeN) => {
+        return menuTreeN.map((item) => {
+            let submenu = item.children;
+            if (submenu) {
+                return (
+                    <Menu.SubMenu
+                        key={item.id}
+                        title={
+                            <span>
+                                {item.icon && <Icon type={item.icon} />}
+                                <span>{item.name}</span>
+                            </span>
+                        }
+                    >
+                        {getMenus(item.children)}
+                    </Menu.SubMenu>
+                )
+            }
+            return (
+                //只有一级
+                <Menu.Item key={item.id}>
+                    <Link to={item.route|| '#'}>
+                        {item.icon && <Icon type={item.icon} />}
+                        <span>{item.name}</span>
+                    </Link>
+                </Menu.Item>
+            )
+        })
+    }
+
+    const menuItems = getMenus(menuTree)
     return (
-        <div>
-            <Menu
-                theme="dark"
-                //onClick={this.handleClick}
-                defaultOpenKeys={['sub1']}
-                selectedKeys={[location.pathname]}
-                mode="inline"
-            >
-                {menuList}
-            </Menu>
-        </div>
+        <Menu
+            theme="dark"
+            defaultOpenKeys={['0']}
+            selectedKeys={[location.pathname]}
+            mode="inline"
+        >
+            {menuItems}
+        </Menu>
     )
 }
+
 export default Menus

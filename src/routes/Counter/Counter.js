@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'dva';
 import styles from './Counter.less';
-import MainLayout from '../../components/Layout/index';
 
 
 /**
@@ -14,7 +13,6 @@ const CountApp = ({count, dispatch,location}) => {
     //通过 props 传入两个值，count 和 dispatch，
     //count 对应 model 上的 state，在后面 connect 的时候绑定，dispatch 用于分发 action
     return (
-    // <MainLayout location={location}>
     <div className={styles.normal}>
         <div className={styles.record}>
             最高记录:0
@@ -28,7 +26,6 @@ const CountApp = ({count, dispatch,location}) => {
             <button onClick={() => { dispatch({type: 'count/add'}); }}>+</button>
         </div>
     </div>
-    //   </MainLayout>
     );
 };
 

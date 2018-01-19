@@ -61,11 +61,11 @@ const EnumRoleType = {
 //不同角色对应的权限
 const userPermission = {
     DEFAULT: {
-        visit: ['2','6'],
+        visit: ['0','3'],
         role: EnumRoleType.DEFAULT,
     },
     DEVELOPER: {
-        visit: ['2','3','5','6'],
+        visit: ['0','2','3','4','41','410'],//410菜单配置
         role: EnumRoleType.DEVELOPER,
     },
     ADMIN: {//全部
@@ -87,8 +87,8 @@ const adminUsers = [
       permissions: userPermission.DEFAULT,
     }, {
       id: 2,
-      username: '吴彦祖',
-      password: '123456',
+      username: 'dev',
+      password: 'dev',
       permissions: userPermission.DEVELOPER,
     }
 ]

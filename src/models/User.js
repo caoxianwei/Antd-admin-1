@@ -17,7 +17,7 @@ export default {
     subscriptions:{//订阅数据源 ->路由信息
         setup({ dispatch, history }) {
             return history.listen(location => {
-              if (location.pathname === '/user') {
+              if (location.pathname === '/userset') {
                 dispatch({ //发出action
                   type: 'query',
                   payload: {}
@@ -45,7 +45,6 @@ export default {
         },
         *create({ payload:values }, { call, put }){
             const data = yield call(usersService.create, values)
-            //console.log(data)
             if (data.data.success) {
                 yield put({ type: 'reload' })
               } else {

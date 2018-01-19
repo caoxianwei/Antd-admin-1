@@ -2,8 +2,8 @@
  * @desc 主数据集 其余数据集继承于它
  */
 import { routerRedux } from 'dva/router'
-import { parse } from 'qs'//退出登录
-import { query, logout } from '../services/app'// query某个用户具体信息
+//import { parse } from 'qs'//退出登录
+import { query } from '../services/app'// query某个用户具体信息
 import * as menusService from '../services/menus'// query 提供获取菜单列表
 import {config} from '../utils/index'
 import queryString from 'query-string'
