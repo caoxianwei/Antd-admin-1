@@ -7,17 +7,17 @@ var menubase = [{
     id:'0',
     icon:'user-add',
     route:'/originsee',
-    name:'普通人能看的'
+    name:'原始订单'
 },{
     id:'1',
     icon:'wallet',
     route:'/adminsee',
-    name:'Admin专属',
+    name:'销售订单',
 },{
     id:'2',
     icon:'bank',
     route:'/developersee',
-    name:'管理员专属'
+    name:'采购单'
 },{
     id:'3',
     icon:'star',

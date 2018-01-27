@@ -34,20 +34,23 @@ const RunterConfig  = function({history,app}){
             component:()=>import('./routes/counter/Counter.js')
         },{
             path:'/adminsee',
-            component:()=>import('./routes/test/adminsee.js'),
+            //component:()=>import('./routes/test/adminsee.js'),
+            component:()=>import('./routes/orders/sellOrder.js')
         },{
             path:'/developersee',
-            component:()=>import('./routes/test/developersee.js'),
+            //component:()=>import('./routes/test/developersee.js'),
+            component:()=>import('./routes/orders/buyOrder.js')
         },{
             path:'/originsee',
-            component:()=>import('./routes/test/originsee.js'),
+            //component:()=>import('./routes/test/originsee.js')
+            component:()=>import('./routes/orders/originOrder.js')
         }
     ]
     return (
         <ConnectedRouter history={history}>
         <App>
           <Switch>
-            <Route exact path="/" render={() => (<Redirect to="/originsee"/>)} />
+            <Route exact path="/" render={() => (<Redirect to="/developersee"/>)} />
             {
               routes.map(({ path, ...dynamics }, key) => (
                 <Route key={key}

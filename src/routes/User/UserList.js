@@ -8,7 +8,6 @@ import React from 'react';
 import { Table,Button,Modal } from 'antd';
 import 'antd/dist/antd.css';
 import Dialog from './Dialog';
-import { create } from '../../services/menus';
 const confirm = Modal.confirm
 
 const UserList = ({onCreateItem, onEditItem,onDeleteItem,total,current,loading,dataSource})=>{
