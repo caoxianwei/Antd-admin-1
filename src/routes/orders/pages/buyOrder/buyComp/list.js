@@ -2,9 +2,8 @@
  * 列表组件
  */
 import React from 'react';
-import { Table,Button,Modal, Input, Popconfirm  } from 'antd';
+import { Table,Button, Input, Popconfirm  } from 'antd';
 import 'antd/dist/antd.css';
-import Footer from './footer';
 //const confirm = Modal.confirm
 
 const EditableCell = ({ editable, value, onChange }) => (
@@ -16,44 +15,55 @@ const EditableCell = ({ editable, value, onChange }) => (
   </div>
 );
 
-
+//const {ORDER_NO,PURCHASE_MAN,PURCHASE_DATE,MEMO,CREATE_TIME,STOREHOUSE_NAME,TRADE_TYPE,STATE} = orderList
 class EditableTable extends React.Component {
   constructor(props) {
     super(props);
         this.columns = [
             {
-            title: '内部商品名',
-            dataIndex: 'INTERNAL_NAME',
-            width: '15%',
-            render: (text, record) => this.renderColumns(text, record, 'INTERNAL_NAME'),
+            title: '采购单编号',
+            dataIndex: 'ORDER_NO',
+            width: '12.5%',
+            render: (text, record) => this.renderColumns(text, record, 'ORDER_NO'),
             }, {
-            title: '内部商品类型',
-            dataIndex: 'INTERNAL_TYPE',
-            width: '15%',
-            render: (text, record) => this.renderColumns(text, record, 'INTERNAL_TYPE'),
+            title: '*采购员',
+            dataIndex: 'PURCHASE_MAN',
+            width: '12.5%',
+            render: (text, record) => this.renderColumns(text, record, 'PURCHASE_MAN'),
             }, {
-            title: '单位',
-            dataIndex: 'UNIT_NAME',
-            width: '15%',
-            render: (text, record) => this.renderColumns(text, record, 'UNIT_NAME'),
+            title: '*采购时间',
+            dataIndex: 'PURCHASE_DATE',
+            width: '12.5%',
+            render: (text, record) => this.renderColumns(text, record, 'PURCHASE_DATE'),
             }, {
-            title: '数量',
-            dataIndex: 'AMOUNT',
-            width: '15%',
-            render: (text, record) => this.renderColumns(text, record, 'AMOUNT'),
+            title: '备注',
+            dataIndex: 'MEMO',
+            width: '10%',
+            render: (text, record) => this.renderColumns(text, record, 'MEMO'),
             }, {
-            title: '单价',
-            dataIndex: 'UNIT_PRICE',
-            width: '15%',
-            render: (text, record) => this.renderColumns(text, record, 'UNIT_PRICE'),
+            title: '*建单时间',
+            dataIndex: 'CREATE_TIME',
+            width: '12.5%',
+            render: (text, record) => this.renderColumns(text, record, 'CREATE_TIME'),
             },{
-            title: '总价',
-            dataIndex: 'SUM',
-            width: '15%',
-            render: (text, record) => this.renderColumns(text, record, 'SUM'),
-            },  {
+            title: '仓库名',
+            dataIndex: 'STOREHOUSE_NAME',
+            width: '12.5%',
+            render: (text, record) => this.renderColumns(text, record, 'STOREHOUSE_NAME'),
+            },{
+            title: '类型名称',
+            dataIndex: 'TRADE_TYPE',
+            width: '12.5%',
+            render: (text, record) => this.renderColumns(text, record, 'TRADE_TYPE'),
+            },{
+            title: '订单状态',
+            dataIndex: 'STATE',
+            width: '12.5%',
+            render: (text, record) => this.renderColumns(text, record, 'STATE'),
+            },{
             title: '操作',
             dataIndex: 'operation',
+            width: '12.5%',
             render: (text, record) => {
                 const { editable } = record;
                 return (
@@ -126,8 +136,7 @@ class EditableTable extends React.Component {
     }
   }
   render() {
-    const {dataSource,footerData} = this.props;
-
+    const {dataSource} = this.props;
     return(
         <div>
             <Table
@@ -135,8 +144,8 @@ class EditableTable extends React.Component {
                 dataSource={dataSource}
                 columns={this.columns}
                 rowKey={record => record.ID}
+               // scroll={{ x: 200 }}
             />
-            <Footer {...footerData}/>
         </div>
     )
   }

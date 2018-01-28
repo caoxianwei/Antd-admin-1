@@ -7,7 +7,7 @@
  * @desc 筛选栏
  */
 import React from 'react'
-import { Form, Row, Col, DatePicker, Input } from 'antd'
+import { Form, Row, Col, Input } from 'antd'
 
 const Footer = ({LUMP_SUM,MEMO,CREATE_MAN,AUDITOR,AUDITOR_TIME,PRINTCOUNT})=>{
     return(

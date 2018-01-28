@@ -3,9 +3,9 @@
  */
 import Filter from './originComp/filter'
 import List from './originComp/list'
-import HocTable from './HocTable'
+import HocTable from '../../HocTable'
 
-const CommonOrder = ({data}) =>{
+const originOrder = ({data}) =>{
     if(data!==null){
         const {CUSTOMER_NAME,CUSTOMER_TYPE,ORDER_NO,DISTRIBUTION_DATE} = data
         const filterProps = {
@@ -40,7 +40,7 @@ const CommonOrder = ({data}) =>{
     )
 }
 
-const HocOrigin = HocTable(CommonOrder)
+const HocOrigin = HocTable(originOrder)
 
 
 export default HocOrigin

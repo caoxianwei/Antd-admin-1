@@ -1,0 +1,76 @@
+export const originToolBar =[
+    {
+        'icon':'left',
+        'name':'上张',
+        'fun':'getPrev'
+    },{
+        'icon':'right',
+        'name':'下张',
+        'fun':'getNext'
+    },{
+        'icon':'plus',
+        'name':'新建单据',
+        'fun':'addNew'
+    },{
+        'icon':'check',
+        'name':'保存单据',
+        'fun':'save'
+    },{
+        'icon':'minus',
+        'name':'删除单据',
+        'fun':'del'
+    },{
+        'icon':'link',
+        'name':'审核单据',
+        'fun':'check'
+    },{
+        'icon':'search',
+        'name':'查询',
+        'fun':'search'
+    },{
+        'icon':'inbox',
+        'name':'导出',
+        'fun':'print'
+    }
+]
+
+
+export const sellToolBar =[
+    {
+        'icon':'left',
+        'name':'上张',
+        'fun':'getPrev'
+    },{
+        'icon':'right',
+        'name':'下张',
+        'fun':'getNext'
+    },{
+        'icon':'check',
+        'name':'保存单据',
+        'fun':'save'
+    },{
+        'icon':'minus',
+        'name':'删除单据',
+        'fun':'del'
+    },{
+        'icon':'link',
+        'name':'审核单据',
+        'fun':'check'
+    },{
+        'icon':'link',
+        'name':'弃审',
+        'fun':'uncheck'
+    },{
+        'icon':'search',
+        'name':'查询',
+        'fun':'search'
+    },{
+        'icon':'inbox',
+        'name':'打印',
+        'fun':'print'
+    },{
+        'icon':'inbox',
+        'name':'导出',
+        'fun':'print'
+    }
+]

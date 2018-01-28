@@ -34,16 +34,14 @@ const RunterConfig  = function({history,app}){
             component:()=>import('./routes/counter/Counter.js')
         },{
             path:'/adminsee',
-            //component:()=>import('./routes/test/adminsee.js'),
-            component:()=>import('./routes/orders/sellOrder.js')
+            component:()=>import('./routes/orders/pages/sellOrder/sellOrder.js')
         },{
             path:'/developersee',
             //component:()=>import('./routes/test/developersee.js'),
-            component:()=>import('./routes/orders/buyOrder.js')
+            component:()=>import('./routes/orders/pages/buyOrder/buyOrder.js')
         },{
             path:'/originsee',
-            //component:()=>import('./routes/test/originsee.js')
-            component:()=>import('./routes/orders/originOrder.js')
+            component:()=>import('./routes/orders/pages/originOrder/originOrder.js')
         }
     ]
     return (

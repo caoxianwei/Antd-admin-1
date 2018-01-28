@@ -7,54 +7,75 @@
  */
 
 import React, {Component} from 'react';
+import Toolbar from './component/toolbar';
+import {originToolBar,sellToolBar} from './utils/mock';
+import {query,getMaxandMin,getPrev,getNext} from './utils/index';
+import request from './utils/request';
 
 
  //返回被包裹组件的原有名称 即在被高阶组件包裹之后应当保留其原有名称
- const getDisplayName = (component)=>{
+const getDisplayName = (component)=>{
     return component.displayName || component.name || 'Component';
 }
 
-const  HocTable = (WrappedComponent, selectData) => {
-    // ……返回另一个新组件……
-    return class HOC extends Component {
+const  HocTable = (WrappedComponent) => {
+     const childname = getDisplayName(WrappedComponent);
+     let toolvalue = childname==='originOrder'?originToolBar:sellToolBar
+     return class HOC extends Component {
         static displayName = `HOC(${getDisplayName(WrappedComponent)})`
         constructor(props) {
             super(props);
-            //this.handleChange = this.handleChange.bind(this);
             this.state = {
-                //data: selectData(DataSource, props)
-                originList:null
+                originList:null,
+                MAXID: 0,
+				MINID: 0, //当前id
+				CURID: 0,
             };
+            this.onClickItem = this.onClickItem.bind(this)
         }
-
         componentDidMount() {
-            // ……注意订阅数据……
-            //DataSource.addChangeListener(this.handleChange);
-            fetch("http://222.196.35.35:9080/GSMS/logistics/originalorder/next.do?ID=50")
-            .then(r => r.json())
-            .then(originList => {
-                    this.setState({originList})
+            this.initData()
+            //console.log(this.CURID)
+        }
+        onClickItem(value){
+            switch(value){
+                case 'getPrev':this.getData(getPrev(this.state.CURID)[childname]);break;
+                case 'getNext':this.getData(getNext(this.state.CURID)[childname]);break;
+                default:return value;
+            }
+        }
+        initData(){
+            //获取最大最小id
+            request(getMaxandMin[childname])
+            .then(response => {
+                const {MAXID,MINID} = response
+                this.setState({
+                    MAXID,
+                    MINID,
+                    CURID:MINID+1
+                })
+                if(childname==='sellOrder'){
+                    request(query(this.state.MAXID)[childname]).then(originList=>{
+                        this.setState({originList})
+                    })
                 }
-            )
+            })
         }
-
-        componentWillUnmount() {
-            //DataSource.removeChangeListener(this.handleChange);
+        getData(url){
+            request(url)
+            .then(response => {
+                //console.log(response.ID)
+                this.setState({
+                    originList:response,
+                    CURID:response.ID
+                })
+            })
         }
-
-        // handleChange() {
-        //     this.setState({
-        //         //data: selectData(DataSource, this.props)
-        //     });
-        // }
-
         render() {
-            // ……使用最新的数据渲染组件
-            // 注意此处将已有的props属性传递给原组件
             return(
                 <div>
                     <div className="demo-header">
-                        我是toolbar
+                        <Toolbar data={toolvalue} onClickItem={this.onClickItem}/>
                     </div>
                     <WrappedComponent data={this.state.originList} {...this.props} />
                 </div>
@@ -63,4 +84,5 @@ const  HocTable = (WrappedComponent, selectData) => {
     };
   }
 
-  export default HocTable
+
+export default HocTable;
