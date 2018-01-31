@@ -1,3 +1,7 @@
+/**
+ *  @desc toolbar 模拟数据
+ */
+
 export const originToolBar =[
     {
         'icon':'left',

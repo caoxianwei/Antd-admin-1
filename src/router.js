@@ -37,7 +37,6 @@ const RunterConfig  = function({history,app}){
             component:()=>import('./routes/orders/pages/sellOrder/sellOrder.js')
         },{
             path:'/developersee',
-            //component:()=>import('./routes/test/developersee.js'),
             component:()=>import('./routes/orders/pages/buyOrder/buyOrder.js')
         },{
             path:'/originsee',

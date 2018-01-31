@@ -9,7 +9,7 @@
 import React, {Component} from 'react';
 import Toolbar from './component/toolbar';
 import {originToolBar,sellToolBar} from './utils/mock';
-import {query,getMaxandMin,getPrev,getNext} from './utils/index';
+import {query,getMaxandMin,getPageChange} from './utils/index';
 import request from './utils/request';
 
 
@@ -20,7 +20,7 @@ const getDisplayName = (component)=>{
 
 const  HocTable = (WrappedComponent) => {
      const childname = getDisplayName(WrappedComponent);
-     let toolvalue = childname==='originOrder'?originToolBar:sellToolBar
+     let toolvalue = childname==='originalorder'?originToolBar:sellToolBar
      return class HOC extends Component {
         static displayName = `HOC(${getDisplayName(WrappedComponent)})`
         constructor(props) {
@@ -35,18 +35,14 @@ const  HocTable = (WrappedComponent) => {
         }
         componentDidMount() {
             this.initData()
-            //console.log(this.CURID)
         }
         onClickItem(value){
-            switch(value){
-                case 'getPrev':this.getData(getPrev(this.state.CURID)[childname]);break;
-                case 'getNext':this.getData(getNext(this.state.CURID)[childname]);break;
-                default:return value;
-            }
+            let curURL = getPageChange(value,this.state.CURID,childname)
+            this.getData(curURL)
         }
         initData(){
             //获取最大最小id
-            request(getMaxandMin[childname])
+            request(getMaxandMin(childname))
             .then(response => {
                 const {MAXID,MINID} = response
                 this.setState({
@@ -54,7 +50,7 @@ const  HocTable = (WrappedComponent) => {
                     MINID,
                     CURID:MINID+1
                 })
-                if(childname==='sellOrder'){
+                if(childname==='salesorder'){
                     request(query(this.state.MAXID)[childname]).then(originList=>{
                         this.setState({originList})
                     })
@@ -64,7 +60,6 @@ const  HocTable = (WrappedComponent) => {
         getData(url){
             request(url)
             .then(response => {
-                //console.log(response.ID)
                 this.setState({
                     originList:response,
                     CURID:response.ID

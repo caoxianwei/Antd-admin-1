@@ -4,7 +4,7 @@ import HocTable from '../../HocTable'
 
 
 
-const sellOrder = ({data}) => {
+const salesorder = ({data}) => {
     if(data!==null){
         const {
             CUSTOMER_NAME,
@@ -55,7 +55,7 @@ const sellOrder = ({data}) => {
     )
 }
 
-const HocSell = HocTable(sellOrder)
+const HocSell = HocTable(salesorder)
 
 
 export default HocSell

@@ -1,52 +1,43 @@
 /**
- * 获取数据
- * //不该以页面来分 以方法来分 总共一个数据源 调用不同的api 工厂内部判断是什么子组件
+ * 获取数据 api
+ * //不该以页面来分 以方法来分 总共一个数据源 调用不同的api
  */
 
  //公共api
- const RootApi = 'http://222.196.35.35:9080/GSMS';
+ const PATH_BASE = 'http://222.196.35.35:9080/GSMS';
+ const PATH_ORIGIN = '/originalorder';//原始订单
+ const PATH_SELL = '/salesorder';//销售订单
+ const PARAM_PRE = '/pre.do?ID=';//上张
+ const PARAM_NEXT = '/next.do?ID=';//下张
+ const PARAM_MAXMINID = '/getmaxminid.do';
+
 
 //初始化获取数据
 export function query(id){
     let query= {}
-    query.originOrder = `${RootApi}/logistics/originalorder/next.do?ID=${id}`;
-    query.sellOrder = `${RootApi}/logistics/salesorder/findbyid.do?ID=${id}`;
+    query.originOrder = `${PATH_BASE}/logistics/originalorder/next.do?ID=${id}`;
+    query.sellOrder = `${PATH_BASE}/logistics/salesorder/findbyid.do?ID=${id}`;
     return query;
 }
 
-//上张
-export function getPrev(id){
-    let queryop= {}
-    queryop.originOrder = `${RootApi}/logistics/originalorder/pre.do?ID=${id}`;
-    queryop.sellOrder = `${RootApi}/logistics/salesorder/pre.do?ID=${id}`;
-    return queryop;
+export function getPageChange(fun,id,childname){
+    let funtype = fun==='getPrev'?PARAM_PRE:PARAM_NEXT;
+    return `${PATH_BASE}/logistics/${childname}${funtype}${id}`;
 }
 
-export function getNext(id){
-    let queryop= {}
-    queryop.originOrder = `${RootApi}/logistics/originalorder/next.do?ID=${id}`;
-    queryop.sellOrder = `${RootApi}/logistics/salesorder/next.do?ID=${id}`;
-    return queryop;
-}
 
 //页面最大最小id
-export  const getMaxandMin = {
-    'originOrder':`${RootApi}/logistics/originalorder/getmaxminid.do`,
-    'sellOrder':`${RootApi}/logistics/salesorder/getmaxminid.do`,
+export  function getMaxandMin(childname){
+    return `${PATH_BASE}/logistics/${childname}${PARAM_MAXMINID}`
 }
 
-
-
-
- /*
-    //获取数据的api
-    const originOrder = {
-        'getMaxandMin':`${RootApi}/logistics/salesorder/getmaxminid.do`,
-        'get':`${RootApi}/logistics/originalorder/next.do?ID=50`
-    }
-
-    const sellOrder = {
-        'getMaxandMin':`${RootApi}/logistics/originalorder/getmaxminid.do`,
-        'get':`${RootApi}/logistics/salesorder/findbyid.do?ID=112`
-    }
-*/
+/**
+ *  api 汇总
+ *      最大最小id：
+ *          // 原始订单:`${PATH_BASE}/logistics/originalorder/getmaxminid.do`,
+            // 销售订单:`${PATH_BASE}/logistics/salesorder/getmaxminid.do`,
+        上张：
+            原始订单：`${PATH_BASE}/logistics/originalorder/pre.do?ID=${id}`
+        下张：
+            原始订单: `${PATH_BASE}/logistics/originalorder/next.do?ID=${id}`;
+ */
