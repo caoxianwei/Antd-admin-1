@@ -21,7 +21,7 @@ http://localhost:8000
 
 效果图：
 
-![](http://gitbookpic.youngxyblog.com/18-3-9/28440096.jpg)
+<p><img src="http://gitbookpic.youngxyblog.com/18-3-9/28440096.jpg"/></p>
 
 
 

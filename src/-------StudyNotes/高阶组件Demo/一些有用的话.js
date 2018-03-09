@@ -1,37 +1,37 @@
-const HoC = (WrappedComponent) => {
-    const WrappingComponent = (props) => (
-        <div className="foo">
-            <WrappedCompoent {...props} />
-        </div>
-    );
-    return WrappingComponent;
-};
+// const HoC = (WrappedComponent) => {
+//     const WrappingComponent = (props) => (
+//         <div className="foo">
+//             <WrappedCompoent {...props} />
+//         </div>
+//     );
+//     return WrappingComponent;
+// };
 
 
-const HoC = (WrappedComponent) => {
-    class WrappingComponent extends WrappendComponent {
-        render() (
-            const {user, ...otherProps} = this.props;
-            this.props = otherProps;
-            return super.render();
-        }
-    }
-    return WrappingComponent;
-};
+// const HoC = (WrappedComponent) => {
+//     class WrappingComponent extends WrappendComponent {
+//         render(){
+//             const {user, ...otherProps} = this.props;
+//             this.props = otherProps;
+//             return super.render();
+//         }
+//     }
+//     return WrappingComponent;
+// };
 
 
 
-const HoC = (WrappedComponent, LoginView) => {
-    const WrappingComponent = () => {
-         const {user} = this.props;
-         if (user) {
-            return <WrappedComponent {...this.props} />
-         } else {
-            return <LoginView {...this.props} />
-         }
-    };
-    return WrappingComponent;
-};
+// const HoC = (WrappedComponent, LoginView) => {
+//     const WrappingComponent = () => {
+//          const {user} = this.props;
+//          if (user) {
+//             return <WrappedComponent {...this.props} />
+//          } else {
+//             return <LoginView {...this.props} />
+//          }
+//     };
+//     return WrappingComponent;
+// };
 
 
 

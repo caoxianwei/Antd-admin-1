@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+/*import React, {Component} from 'react';
 
 
  //返回被包裹组件的原有名称 即在被高阶组件包裹之后应当保留其原有名称
@@ -61,7 +61,7 @@ const CommentListWithSubscription = withSubscription(
     BlogPost,
     (DataSource, props) => DataSource.getBlogPost(props.id)
   );
-
+*/
 /*
   当 CommentListWithSubscription 和 BlogPostWithSubscription 渲染时,
   会向CommentList 和 BlogPost 传递一个 data props属性，
