@@ -2,7 +2,6 @@
  * @desc 主数据集 其余数据集继承于它
  */
 import { routerRedux } from 'dva/router'
-//import { parse } from 'qs'//退出登录
 import { query } from '../services/app'// query某个用户具体信息
 import * as menusService from '../services/menus'// query 提供获取菜单列表
 import {config} from '../utils/index'
@@ -17,10 +16,10 @@ export default {
             visit:[]
         },
         menu:[{
-            id:'6',
-            icon:'user-add',
-            route:'/originsee',
-            name:'普通人能看的'
+            id:'3',
+            icon:'star',
+            route:'/studydemo',
+            name:'学习Demo'
         }],
         locationPathname: '', //当前路径
         locationQuery: {},//from 判断上个路由
@@ -83,11 +82,10 @@ export default {
                 //if (locationPathname === '/login') {
                     //不明白为何要加这个
                     yield put(routerRedux.push({
-                        pathname: '/originsee',
+                        pathname: '/studydemo',
                     }))
                 //}
             }
-            //还是不懂它的未登录状态为什么不直接用else 而是else if
             else if (config.openPages && config.openPages.indexOf(locationPathname) < 0) {
                 //强制跳转到登录页面
                 yield put(routerRedux.push({
@@ -110,20 +108,14 @@ export default {
                         visit:[]
                     },
                     menu:[{
-                        id:'6',
-                        icon:'user-add',
-                        route:'/originsee',
-                        name:'普通人能看的'
+                        id:'3',
+                        icon:'star',
+                        route:'/studydemo',
+                        name:'学习Demo'
                     }]
                 },
             })
             yield put({ type: 'query' })
-            // const data = yield call(logout, parse(payload))
-            // if (data.success) {
-            //     yield put({ type: 'query' })//判断登录状态  跳回登录页
-            // } else {
-            //     throw (data)
-            // }
         }
 
     },

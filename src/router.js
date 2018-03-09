@@ -31,7 +31,8 @@ const RunterConfig  = function({history,app}){
             component:()=>import('./routes/menus/modal.js'),
         },{
             path:'/studydemo',
-            component:()=>import('./routes/counter/Counter.js')
+            models:()=>[import('./models/counter.js')],
+            component:()=>import('./routes/counter/counter.js')
         },{
             path:'/adminsee',
             component:()=>import('./routes/orders/pages/sellOrder/sellOrder.js')
@@ -47,7 +48,7 @@ const RunterConfig  = function({history,app}){
         <ConnectedRouter history={history}>
         <App>
           <Switch>
-            <Route exact path="/" render={() => (<Redirect to="/developersee"/>)} />
+            <Route exact path="/" render={() => (<Redirect to="/studydemo"/>)} />
             {
               routes.map(({ path, ...dynamics }, key) => (
                 <Route key={key}

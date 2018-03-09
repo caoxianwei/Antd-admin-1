@@ -5,7 +5,7 @@ import React from 'react'
 import { Form, Row, Col, DatePicker, Input } from 'antd'
 
 const Filter = ({valueData})=>{
-    const {CUSTOMER_NAME,CUSTOMER_TYPE,ORDER_NO,DISTRIBUTION_DATE,STATE} = valueData;
+    const {CUSTOMER_NAME,CUSTOMER_TYPE,ORDER_NO,STATE} = valueData;
     return(
         <Row  type="flex" justify='space-between'>
             <Col span={6}>

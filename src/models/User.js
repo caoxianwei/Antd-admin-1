@@ -71,14 +71,6 @@ export default {
         hideModal(){},
         querySuccess(state,action){//获取数据
             return {...state, ...action.payload, loading: false}
-        },
-        createSuccess(){//新增
-        },
-        deleteSuccess(){//删除
-
-        },
-        updateSuccess(){//更新
-
         }
     }
 }

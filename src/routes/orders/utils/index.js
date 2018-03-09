@@ -5,18 +5,17 @@
 
  //公共api
  const PATH_BASE = 'http://222.196.35.35:9080/GSMS';
- const PATH_ORIGIN = '/originalorder';//原始订单
- const PATH_SELL = '/salesorder';//销售订单
  const PARAM_PRE = '/pre.do?ID=';//上张
  const PARAM_NEXT = '/next.do?ID=';//下张
  const PARAM_MAXMINID = '/getmaxminid.do';
 
 
 //初始化获取数据
-export function query(id){
+export function query(id,childname){
     let query= {}
-    query.originOrder = `${PATH_BASE}/logistics/originalorder/next.do?ID=${id}`;
-    query.sellOrder = `${PATH_BASE}/logistics/salesorder/findbyid.do?ID=${id}`;
+    query[childname] =  `${PATH_BASE}/logistics/${childname}/next.do?ID=${id}`;
+    // query.originOrder = `${PATH_BASE}/logistics/originalorder/next.do?ID=${id}`;
+    // query.sellOrder = `${PATH_BASE}/logistics/salesorder/next.do?ID=${id}`;
     return query;
 }
 

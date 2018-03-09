@@ -33,8 +33,15 @@ const  HocTable = (WrappedComponent) => {
             };
             this.onClickItem = this.onClickItem.bind(this)
         }
-        componentDidMount() {
+        componentWillMount(){
             this.initData()
+        }
+        componentWillUpdate(nextProps,nextState){
+            //首次获得数据
+            if(!this.state.CURID){
+                const curURL = query(nextState.CURID,childname)[childname]
+                this.getData(curURL)
+            }
         }
         onClickItem(value){
             let curURL = getPageChange(value,this.state.CURID,childname)
@@ -50,11 +57,6 @@ const  HocTable = (WrappedComponent) => {
                     MINID,
                     CURID:MINID+1
                 })
-                if(childname==='salesorder'){
-                    request(query(this.state.MAXID)[childname]).then(originList=>{
-                        this.setState({originList})
-                    })
-                }
             })
         }
         getData(url){

@@ -1,47 +1,38 @@
 import React from 'react';
 import { connect } from 'dva';
-import styles from './Counter.less';
+import { Button } from 'antd';
+import styles from './counter.less';
 
-
-/**
- *
- * @func 模块-component
- */
-
-const CountApp = ({count, dispatch,location}) => {
-    //[2] component
-    //通过 props 传入两个值，count 和 dispatch，
-    //count 对应 model 上的 state，在后面 connect 的时候绑定，dispatch 用于分发 action
+const Counter = ({dispatch,counter})=>{
+    const {count}  = counter;
+    const onAdd =(value)=>{
+        dispatch({
+            type:'counter/add',
+            payload:value
+        })
+    }
+    const onMinus =(value)=>{
+        dispatch({
+            type:'counter/minus',
+            payload:value
+        })
+    }
     return (
-    <div className={styles.normal}>
-        <div className={styles.record}>
-            最高记录:0
-            {/* {count.record} */}
+        <div className={styles.box}>
+            <h1 className={styles.title}>当前数:{count}</h1>
+            <div className={styles.button}>
+                <Button type="danger" size="large" onClick={onMinus.bind(null,2)}>减 2</Button>
+                <Button type="primary" size="large"  onClick={onAdd.bind(null,3)}>加 3</Button>
+            </div>
         </div>
-        <div className={styles.current}>
-            当前记录：0
-            {/* {count.current} */}
-        </div>
-        <div className={styles.button}>
-            <button onClick={() => { dispatch({type: 'count/add'}); }}>+</button>
-        </div>
-    </div>
     );
-};
-
-/**
- * @func 模块--container[连接Model和Component]
- * 作用：[4] container
- *  使Component能使用 Model 里定义的数据
- *  Model 中也能接收到 Component 里 dispatch 的 action
- */
-function mapStateToProps(state) {
-    return {
-        count: state.count
-    };
 }
 
-//connect连接
-const HomePage = connect(mapStateToProps)(CountApp);
 
-export default HomePage;
+
+function mapStateToProps(state) {
+    return {
+        counter:state.counter
+    };
+}
+export default connect(mapStateToProps)(Counter);
