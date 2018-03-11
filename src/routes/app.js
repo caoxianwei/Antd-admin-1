@@ -29,7 +29,7 @@ const App = ({children, dispatch, app, loading, location}) => {
     const {user,menu,permissions,siderFold} = app
     let { pathname } = location
     pathname = pathname.startsWith('/') ? pathname : `/${pathname}`
-    //依照不同的路径查询用户是否有访问的权限
+    //依照不同的路径查询用户是否有访问的权限 根据当前路由反向查找menus里面的当前访问menu
     const current = menu.filter(item => pathToRegexp(item.route || '').exec(pathname))
     //如果用户能访问的菜单id里包含了当前菜单的[防止用户输入地址栏强行跳转]
     //这句代码也真是讲究

@@ -17,7 +17,7 @@ http://localhost:8000
 + [x] 2.权限(不同权限访问所得不一)
 + [x] 3.菜单配置
 + [x] 4.高水订单功能复写思考
-    + (由于是实验性所以代码归在一个文件夹里的)
+    + (由于是实验性所以代码归在一个[文件夹](https://github.com/EmilyYoung71415/Antd-admin/tree/master/src/routes/orders)里的)
 
 效果图：
 

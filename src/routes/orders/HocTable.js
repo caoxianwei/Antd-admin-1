@@ -31,10 +31,14 @@ const  HocTable = (WrappedComponent) => {
 				MINID: 0, //当前id
 				CURID: 0,
             };
+            this._isMounted = false;
             this.onClickItem = this.onClickItem.bind(this)
         }
         componentWillMount(){
-            this.initData()
+            this._isMounted = true
+            if(this._isMounted){
+                this.initData()
+            }
         }
         componentWillUpdate(nextProps,nextState){
             //首次获得数据
@@ -42,6 +46,9 @@ const  HocTable = (WrappedComponent) => {
                 const curURL = query(nextState.CURID,childname)[childname]
                 this.getData(curURL)
             }
+        }
+        componentWillUnmount() {
+            this._isMounted = false
         }
         onClickItem(value){
             let curURL = getPageChange(value,this.state.CURID,childname)
